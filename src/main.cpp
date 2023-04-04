@@ -25,10 +25,10 @@ int main() {
         */
 
         /**/
-        { // put your code here instead that code
+        {
+            // put your code here instead that code
             codeResponse = b.getResponse(res);
-            cout << "code response >> ";
-            cin >> codeResponse;
+            cout << "code response " << codeResponse << endl;
         }
         /**/
 

@@ -15,6 +15,10 @@ bool Spot::isPieceWhite() const {
     return this->m_piece->isWhite();
 }
 
+bool Spot::isPieceEmpty() const {
+    return this->m_piece->isEmpty();
+}
+
 void Spot::setPiece(unique_ptr<Piece> p) {
     this->m_piece = std::move(p);
 }

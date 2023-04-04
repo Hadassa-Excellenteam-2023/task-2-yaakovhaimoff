@@ -1,4 +1,5 @@
 #include "Chess.h"
+#include <cstdlib>
 
 // clear the screen "cls"
 //void Chess::clear() const {
@@ -18,17 +19,18 @@
 //    SetConsoleCursorPosition(console, topLeft);
 //}
 // Clear the console screen
-void Chess::clear() const {
-    system("clear"); // macOS and Linux
+void Chess::clear() {
+//    printf("\033[2J\033[1;1H");
+//    std::system("clear"); // macOS and Linux
 }
 
 // create the GUI - ASCII art
 void Chess::setFrames() {
     // set all to ' ' (space bar ascii value 32) instead of 0
     {
-        for (size_t row = 0; row < SIZE; ++row)
-            for (size_t col = 0; col < SIZE; ++col)
-                m_board[row][col] = 32;
+        for (auto & row : m_board)
+            for (unsigned char & col : row)
+                col = 32;
     }
     // set out frame
     {

@@ -10,7 +10,11 @@ class Board {
 
     void setBoard(const std::string &);
 
-    bool whiteMove = true;
+    bool checkIfNextStepClear(const pair<int, int> &, const pair<int, int> &);
+
+    bool isOutOfBounds(const int x, const int y);
+
+    bool m_whiteMove = true;
 
     vector<vector<unique_ptr<Spot>>> m_spots; // 2D vector of unique pointers to Spot objects
 

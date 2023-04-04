@@ -6,6 +6,7 @@ class Empty : public Piece {
 
 public:
     Empty(const bool &white) : Piece(white) {
+        setEmpty(true);
 //        cout << "Empty created";
     };
 

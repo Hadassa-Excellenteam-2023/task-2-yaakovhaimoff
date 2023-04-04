@@ -13,7 +13,7 @@ class Chess {
 	string m_errorMsg = "\n";
 	int m_codeResponse;
 
-	void clear() const;
+	static void clear() ;
 	void setFrames();
 	void setPieces();
 	void show() const;

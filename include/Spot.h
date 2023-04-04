@@ -21,6 +21,8 @@ public:
 
     bool isPieceWhite() const;
 
+    bool isPieceEmpty() const;
+
     void setPiece(unique_ptr<Piece>);
 
     int getX() const;
