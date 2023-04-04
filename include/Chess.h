@@ -1,12 +1,6 @@
 #pragma once
-#include <iostream>
-//#include <Windows.h>
-#include <string>
 
-using std::cout;
-using std::cin; 
-using std::endl;
-using std::string; 
+#include "macros.h"
 
 const int SIZE = 21;
 

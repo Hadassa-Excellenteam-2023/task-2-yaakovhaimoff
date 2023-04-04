@@ -1,21 +1,21 @@
 #include "IncPieces/Piece.h"
 
 Piece::Piece(bool white) {
-    this->setWhite(white);
+    this->m_white = white;
 }
 
-bool Piece::isWhite() {
-    return this->white;
+bool Piece::isWhite() const{
+    return this->m_white;
 }
 
 void Piece::setWhite(bool white) {
-    this->white = white;
+    this->m_white = white;
 }
 
-bool Piece::isKilled() {
-    return this->killed;
+bool Piece::isKilled() const{
+    return this->m_killed;
 }
 
 void Piece::setKilled(bool killed) {
-    this->killed = killed;
+    this->m_killed = killed;
 }

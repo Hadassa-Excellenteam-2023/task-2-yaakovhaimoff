@@ -1,21 +1,20 @@
 #pragma once
 
-#include <utility>
-
-using std::pair;
+#include "macros.h"
+#include "Factory.h"
 
 class Piece {
-    bool killed = false;
-    bool white = false;
+    bool m_killed = false;
+    bool m_white = false;
 
 public:
     Piece(bool white);
 
-    bool isWhite();
+    bool isWhite() const;
 
     void setWhite(bool white);
 
-    bool isKilled();
+    bool isKilled() const;
 
     void setKilled(bool killed);
 

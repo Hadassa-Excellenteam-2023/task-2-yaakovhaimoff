@@ -1,47 +1,36 @@
 #pragma once
 
-#include <string>
-#include <map>
-#include <memory>
+#include "macros.h"
 
-#include "IncPieces/Piece.h"
-
-using std::unique_ptr;
+class Piece;
 
 template<typename T>
 class Factory {
 
     static auto &getMap() {
-        static std::map<std::string, pFnc> m_map;
+        static std::map<char, pFnc> m_map;
         return m_map;
     }
 
 public:
     using pFnc = std::unique_ptr<T>(*)();
 
-    static unique_ptr<T> create(const std::string &name,
-                                     const int &x,
-                                     const int &y,
-                                     Piece *piece);
+    static unique_ptr<T> create(const char &name);
 
-    static bool registerIt(const std::string &name, pFnc f);
+    static bool registerIt(const char &name, pFnc f);
 
-    static bool checkIfNameInMap(const std::string &name) { return Factory<T>::getMap().count(name) > 0; }
 };
 
 template<typename T>
-unique_ptr<T> Factory<T>::create(const std::string &name,
-                                      const int &x,
-                                      const int &y,
-                                      Piece *piece) {
+unique_ptr<T> Factory<T>::create(const char &name) {
     auto it = Factory<T>::getMap().find(name);
     if (it == Factory<T>::getMap().end())
         return nullptr;
-    return it->second(x, y, piece);
+    return it->second();
 }
 
 template<typename T>
-bool Factory<T>::registerIt(const std::string &name, pFnc f) {
+bool Factory<T>::registerIt(const char &name, pFnc f) {
     Factory<T>::getMap().emplace(name, f);
     return true;
 }
