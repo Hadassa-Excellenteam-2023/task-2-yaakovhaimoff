@@ -4,10 +4,9 @@ project(ex2)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable (${CMAKE_PROJECT_NAME})
-
-add_subdirectory (include)
-add_subdirectory (src)
+file(GLOB_RECURSE SOURCES "src/*.cpp")
+add_executable(${CMAKE_PROJECT_NAME} ${SOURCES})
 
 
-
+include_directories (include)
+include_directories (src)

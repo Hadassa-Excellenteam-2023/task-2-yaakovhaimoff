@@ -1,27 +1,22 @@
 #include "Chess.h"
-#include <cstdlib>
+#include <Windows.h>
 
 // clear the screen "cls"
-//void Chess::clear() const {
-//    COORD topLeft = {0, 0};
-//    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-//    CONSOLE_SCREEN_BUFFER_INFO screen;
-//    DWORD written;
-//
-//    GetConsoleScreenBufferInfo(console, &screen);
-//    FillConsoleOutputCharacterA(
-//            console, ' ', screen.dwSize.X * screen.dwSize.Y, topLeft, &written
-//    );
-//    FillConsoleOutputAttribute(
-//            console, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE,
-//            screen.dwSize.X * screen.dwSize.Y, topLeft, &written
-//    );
-//    SetConsoleCursorPosition(console, topLeft);
-//}
-// Clear the console screen
-void Chess::clear() {
-//    printf("\033[2J\033[1;1H");
-//    std::system("clear"); // macOS and Linux
+void Chess::clear() const {
+    COORD topLeft = {0, 0};
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO screen;
+    DWORD written;
+
+    GetConsoleScreenBufferInfo(console, &screen);
+    FillConsoleOutputCharacterA(
+            console, ' ', screen.dwSize.X * screen.dwSize.Y, topLeft, &written
+    );
+    FillConsoleOutputAttribute(
+            console, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE,
+            screen.dwSize.X * screen.dwSize.Y, topLeft, &written
+    );
+    SetConsoleCursorPosition(console, topLeft);
 }
 
 // create the GUI - ASCII art
@@ -104,8 +99,8 @@ void Chess::setFrames() {
 
 // print the only the board to screen
     void Chess::show() const {
-        for (size_t row = 0; row < SIZE; ++row) {
-            for (size_t col = 0; col < SIZE; ++col)
+        for (size_t row = 0; row < _SIZE; ++row) {
+            for (size_t col = 0; col < _SIZE; ++col)
                 cout << m_board[row][col];
             cout << endl;
         }

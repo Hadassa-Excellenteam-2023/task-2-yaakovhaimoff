@@ -34,11 +34,10 @@ int Board::getResponse(const std::string &input) {
 //    checkIfNextStepClear(src, dst);
 
     // check if the player move is legal
-    if (m_spots[src.first][src.second]->canPieceMove(src, dst)) return 21;
+    if (!m_spots[src.first][src.second]->canPieceMove(src, dst) || !checkIfNextStepClear(src, dst)) return 21;
 
     m_whiteMove = !m_whiteMove; // change the player
     return 42;
-
 }
 
 bool Board::isOutOfBounds(const int x, const int y) {
@@ -46,7 +45,51 @@ bool Board::isOutOfBounds(const int x, const int y) {
 }
 
 
-bool Board::checkIfNextStepClear(const pair<int, int> &src, const pair<int, int> &dst) {
+bool Board::checkIfNextStepClear(const pair<int, int>& src, const pair<int, int>& dst) {
+    int srcRow = src.first;
+    int srcCol = src.second;
+    int dstRow = dst.first;
+    int dstCol = dst.second;
+
+    if (srcRow == dstRow) { // Moving horizontally
+        int colStep = (srcCol < dstCol) ? 1 : -1;
+        for (int col = srcCol + colStep; col != dstCol; col += colStep) {
+            if (!m_spots[srcRow][col]->isPieceEmpty()) {
+                return false;
+            }
+        }
+    }
+    else if (srcCol == dstCol) { // Moving vertically
+        int rowStep = (srcRow < dstRow) ? 1 : -1;
+        for (int row = srcRow + rowStep; row != dstRow; row += rowStep) {
+            if (!m_spots[row][srcCol]->isPieceEmpty()) {
+                return false;
+            }
+        }
+    }
+    else {
+        int rowStep = (dstRow > srcRow) ? 1 : -1;
+        int colStep = (dstCol > srcCol) ? 1 : -1;
+
+        if (srcRow == dstRow) { // Moving horizontally
+            colStep = 0;
+        }
+        else if (srcCol == dstCol) { // Moving vertically
+            rowStep = 0;
+        }
+        else if (abs(srcRow - dstRow) != abs(srcCol - dstCol)) {
+            // Not a valid rook, bishop or queen move, you might want to handle this case as well.
+            return false;
+        }
+
+        int row, col;
+        for (row = srcRow + rowStep, col = srcCol + colStep; row != dstRow || col != dstCol; row += rowStep, col += colStep) {
+            if (!m_spots[row][col]->isPieceEmpty()) {
+                return false;
+            }
+        }
+    }
+
 
     return true;
 }

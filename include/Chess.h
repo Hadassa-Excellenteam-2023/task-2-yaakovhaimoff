@@ -2,10 +2,10 @@
 
 #include "macros.h"
 
-const int SIZE = 21;
+const int _SIZE = 21;
 
 class Chess {
-	unsigned char m_board[SIZE][SIZE] = { 0 };
+	unsigned char m_board[_SIZE][_SIZE] = { 0 };
 	bool m_turn = true;
 	string m_boardString;
 	string m_input;
@@ -13,7 +13,7 @@ class Chess {
 	string m_errorMsg = "\n";
 	int m_codeResponse;
 
-	static void clear() ;
+	void clear() const;
 	void setFrames();
 	void setPieces();
 	void show() const;

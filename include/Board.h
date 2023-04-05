@@ -8,6 +8,8 @@ using std::vector;
 
 class Board {
 
+    void print() { cout << "its " << m_whiteMove ? "lower case turn\n" : "upper case turn\n"; }
+
     void setBoard(const std::string &);
 
     bool checkIfNextStepClear(const pair<int, int> &, const pair<int, int> &);
