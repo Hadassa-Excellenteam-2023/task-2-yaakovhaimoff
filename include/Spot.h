@@ -10,8 +10,7 @@ class Spot {
 private:
 
     unique_ptr<Piece> m_piece;
-    int x;
-    int y;
+    pair<int, int> m_coordinates;
 
 public:
 
@@ -25,13 +24,9 @@ public:
 
     void setPiece(unique_ptr<Piece>);
 
-    int getX() const;
+    pair<int, int> getCoordinates() const { return m_coordinates; }
 
-    void setX(const int);
-
-    int getY() const;
-
-    void setY(const int);
+    void setCoordinates(const pair<int, int>& newCoordinates) { m_coordinates = newCoordinates;  }
 };
 
 #endif //SPOT_H

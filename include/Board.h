@@ -18,7 +18,7 @@ class Board {
 
     bool m_whiteMove = true;
 
-    vector<vector<unique_ptr<Spot>>> m_spots; // 2D vector of unique pointers to Spot objects
+    vector<vector<unique_ptr<Piece>>> m_piece; // 2D vector of unique pointers to Spot objects
 
 public:
 
