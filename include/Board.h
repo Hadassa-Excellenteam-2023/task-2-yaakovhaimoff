@@ -2,13 +2,11 @@
 
 #include "macros.h"
 #include "Factory.h"
-#include "Spot.h"
+#include "IncPieces/Piece.h"
 
 using std::vector;
 
 class Board {
-
-    void print() { cout << "its " << m_whiteMove ? "lower case turn\n" : "upper case turn\n"; }
 
     void setBoard(const std::string &);
 

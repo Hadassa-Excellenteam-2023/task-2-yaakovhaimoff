@@ -10,5 +10,4 @@
         "Chess.cpp"
         "Factory.cpp"
         "main.cpp"
-        "Spot.cpp"
         )
