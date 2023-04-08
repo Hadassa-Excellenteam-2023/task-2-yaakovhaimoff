@@ -23,5 +23,5 @@ public:
 
     void setKilled(bool killed) { m_killed = killed; };
 
-    virtual bool canMove(const pair<int, int> &, const pair<int, int> &) = 0;
+    virtual bool canMove(const pair<int, int> &, const pair<int, int> &, const bool) = 0;
 };

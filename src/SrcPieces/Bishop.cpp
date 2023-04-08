@@ -12,8 +12,7 @@ bool Bishop::m_registerIt2 =
                                        return std::make_unique<Bishop>(true);
                                    });
 
-bool Bishop::canMove(const pair<int, int> &, const pair<int, int> &)
-{
-    cout << "move Bishop" << endl;
-    return true;
+bool Bishop::canMove(const pair<int, int>& src, const pair<int, int>& dst, const bool moveClear) {
+    // Check if the new position is on the same diagonal as the current position
+    return abs(src.first - dst.first) == abs(src.second - dst.second) && src != dst && moveClear;
 }

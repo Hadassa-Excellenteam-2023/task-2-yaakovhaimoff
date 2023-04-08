@@ -10,5 +10,5 @@ public:
 //        cout << "Queen created" << endl;
     };
 
-    bool canMove(const pair<int, int> &, const pair<int, int> &) override;
+    bool canMove(const pair<int, int> &, const pair<int, int> &, const bool) override;
 };

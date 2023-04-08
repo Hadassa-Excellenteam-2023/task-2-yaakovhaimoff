@@ -9,12 +9,13 @@ set(SOURCES
     src/Board.cpp
     src/Chess.cpp
     src/Factory.cpp
-    src/SrcPieces/Piece.cpp
     src/SrcPieces/Bishop.cpp
     src/SrcPieces/King.cpp
     src/SrcPieces/Knight.cpp
     src/SrcPieces/Pawn.cpp
+    src/SrcPieces/Piece.cpp
     src/SrcPieces/Queen.cpp
+    src/SrcPieces/Rook.cpp
 )
 add_executable(${CMAKE_PROJECT_NAME} ${SOURCES})
 

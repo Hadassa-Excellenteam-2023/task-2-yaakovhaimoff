@@ -12,8 +12,7 @@ bool King::m_registerIt2 =
                                        return std::make_unique<King>(true);
                                    });
 
-bool King::canMove(const pair<int, int> &, const pair<int, int> &)
-{
-    cout << "move King" << endl;
-    return true;
+bool King::canMove(const pair<int, int>& src, const pair<int, int>& dst, const bool moveClear) {
+    // Check if the new position is adjacent to the current position
+    return abs(src.first - dst.first) <= 1 && abs(src.second - dst.second) <= 1 && src != dst && moveClear;
 }

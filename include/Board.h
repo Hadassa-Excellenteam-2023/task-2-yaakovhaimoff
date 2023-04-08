@@ -12,8 +12,6 @@ class Board {
 
     bool checkIfNextStepClear(const pair<int, int> &, const pair<int, int> &);
 
-    bool isOutOfBounds(const int x, const int y);
-
     bool m_whiteMove = true;
 
     vector<vector<unique_ptr<Piece>>> m_piece; // 2D vector of unique pointers to Spot objects
