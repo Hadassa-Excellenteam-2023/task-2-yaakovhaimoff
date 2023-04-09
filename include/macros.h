@@ -11,6 +11,8 @@
 #include <memory>
 #include <utility>
 
+#include "Position.h"
+
 using std::cout;
 using std::cin;
 using std::endl;

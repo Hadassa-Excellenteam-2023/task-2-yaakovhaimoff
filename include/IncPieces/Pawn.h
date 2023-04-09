@@ -11,5 +11,5 @@ public:
 //        cout << "Pawn created";
     };
 
-    bool canMove(const pair<int, int> &, const pair<int, int> &, const bool) override;
+    bool canMove(const Position&, const Position&, const bool) override;
 };

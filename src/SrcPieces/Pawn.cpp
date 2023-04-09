@@ -12,10 +12,10 @@ Factory<Piece>::registerIt('p',
 		return std::make_unique<Pawn>(true);
 	});
 
-bool Pawn::canMove(const pair<int, int>& src, const pair<int, int>& dst, const bool moveClear) {
+bool Pawn::canMove(const Position& src, const Position& dst, const bool moveClear) {
 	int dir = isWhite() ? -1 : 1;
-	int x_diff = abs(src.second - dst.second);
-	int y_diff = dst.first - src.first;
+	int x_diff = abs(src.y - dst.y);
+	int y_diff = dst.x - src.x;
 	// Check if the new position is a valid move for a pawn
 	if (x_diff == 0 && moveClear) {
 		if (m_hasMoved) {

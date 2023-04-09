@@ -12,9 +12,9 @@ bool Knight::m_registerIt2 =
                                        return std::make_unique<Knight>(true);
                                    });
 
-bool Knight::canMove(const pair<int, int>& src, const pair<int, int>& dst, const bool) {
+bool Knight::canMove(const Position& src, const Position& dst, const bool) {
     // Check if the new position is a L-shape from the current position
-    int x_diff = abs(src.first - dst.first);
-    int y_diff = abs(src.second - dst.second);
+    int x_diff = abs(src.x - dst.x);
+    int y_diff = abs(src.y - dst.y);
     return ((x_diff == 1 && y_diff == 2) || (x_diff == 2 && y_diff == 1));
 }

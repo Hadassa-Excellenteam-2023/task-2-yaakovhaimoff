@@ -4,7 +4,6 @@
 #include "Factory.h"
 
 class Piece {
-    bool m_killed = false;
     bool m_white = false;
     bool m_isEmpty = false;
 
@@ -19,9 +18,7 @@ public:
 
     void setEmpty(const bool empty) { m_isEmpty = empty; }
 
-    bool isKilled() const { return m_killed; };
+    virtual bool canMove(const Position &, const Position&, const bool) = 0;
 
-    void setKilled(bool killed) { m_killed = killed; };
-
-    virtual bool canMove(const pair<int, int> &, const pair<int, int> &, const bool) = 0;
+    virtual ~Piece() = default;
 };

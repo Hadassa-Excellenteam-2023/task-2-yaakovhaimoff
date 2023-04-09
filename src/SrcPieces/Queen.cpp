@@ -12,8 +12,8 @@ bool Queen::m_registerIt2 =
                                        return std::make_unique<Queen>(true);
                                    });
 
-bool Queen::canMove(const pair<int, int>& src, const pair<int, int>& dst, const bool moveClear) {
+bool Queen::canMove(const Position& src, const Position& dst, const bool moveClear) {
     // Check if the new position is on the same row, column or diagonal as the current position
-    return (src.first == dst.first || src.second == dst.second ||
-        abs(src.first - dst.first) == abs(src.second - dst.second)) && src != dst && moveClear;
+    return (src.x == dst.x || src.y == dst.y ||
+        abs(src.x - dst.x) == abs(src.y - dst.y)) && src != dst && moveClear;
 }

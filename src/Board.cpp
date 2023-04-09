@@ -14,37 +14,51 @@ void Board::setBoard(const std::string& board) {
 
 int Board::getResponse(const std::string& input) {
 	// parse the input string
-	pair src = { input[0] - 'a', input[1] - '1' };
-	pair dst = { input[2] - 'a', input[3] - '1' };
+	Position src = { input[0] - 'a', input[1] - '1' };
+	Position dst = { input[2] - 'a', input[3] - '1' };
 
 	// board checks
 
 	// check if the src is empty
-	if (!m_piece[src.first][src.second]) return 11;
+	if (!m_piece[src.x][src.y]) return 11;
 
 	// check if the src is occupied by the opponent
-	if (m_piece[src.first][src.second]->isWhite() != m_whiteMove) return 12;
+	if (m_piece[src.x][src.y]->isWhite() != m_whiteMove) return 12;
 
 	// check if the dst is occupied by the same color of the current player
-	if (m_piece[dst.first][dst.second] && m_piece[src.first][src.second]->isWhite() == m_piece[dst.first][dst.second]->isWhite())
+	if (m_piece[dst.x][dst.y] && m_piece[src.x][src.y]->isWhite() == m_piece[dst.x][dst.y]->isWhite())
 		return 13;
-
-	// check if player caused himself a mate
 
 	// check if the player move is legal
 	bool moveClear = checkIfNextStepClear(src, dst);
-	if (!m_piece[src.first][src.second]->canMove(src, dst, moveClear)) return 21;
+	if (!m_piece[src.x][src.y]->canMove(src, dst, moveClear)) return 21;
 
 	// if player move was legal
-	m_piece[dst.first][dst.second] = move(m_piece[src.first][src.second]);
+	m_piece[dst.x][dst.y] = move(m_piece[src.x][src.y]);
+
+	// set king position
+	if (typeid(*m_piece[dst.x][dst.y]) == typeid(King))
+		setKingPos({ dst.x, dst.y }, m_piece[dst.x][dst.y]->isWhite());
+
+	// check if player caused himself check
+	if (checkIfKingInCheck(m_whiteMove)) {
+		setKingPos({ src.x, src.y }, m_piece[dst.x][dst.y]->isWhite());
+		m_piece[src.x][src.y] = move(m_piece[dst.x][dst.y]);
+		return 31;
+	}
+
+	// if move was legal
 	m_whiteMove = !m_whiteMove; // change the player
-	return 42;
+
+	// check if player caused opponet check
+	if (checkIfKingInCheck(!m_whiteMove)) return 41;
+	else return 42;
 }
 
 
-bool Board::checkIfNextStepClear(const pair<int, int>& src, const pair<int, int>& dst) {
-	int srcRow = src.first, srcCol = src.second;
-	int dstRow = dst.first, dstCol = dst.second;
+bool Board::checkIfNextStepClear(const Position& src, const Position& dst) {
+	int srcRow = src.x, srcCol = src.y;
+	int dstRow = dst.x, dstCol = dst.y;
 	int rowStep = (dstRow == srcRow) ? 0 : (dstRow > srcRow ? 1 : -1);
 	int colStep = (dstCol == srcCol) ? 0 : (dstCol > srcCol ? 1 : -1);
 
@@ -59,4 +73,24 @@ bool Board::checkIfNextStepClear(const pair<int, int>& src, const pair<int, int>
 		}
 	}
 	return true;
+}
+
+bool Board::checkIfKingInCheck(const bool color) {
+	vector<Position> opponetPos = getOpponetPos(color);
+	Position kingPos = color ? m_whiteKingPos : m_BlackKingPos;
+
+	for (auto& pos : opponetPos) {
+		if (m_piece[pos.x][pos.y]->canMove(pos, kingPos, checkIfNextStepClear(pos, kingPos)))
+			return true;
+	}
+	return false;
+}
+
+vector<Position> Board::getOpponetPos(const bool color) {
+	vector<Position> opponetPos;
+	for (int i = 0; i < BoardSize; i++)
+		for (int j = 0; j < BoardSize; j++)
+			if (m_piece[i][j] && m_piece[i][j]->isWhite() != color)
+				opponetPos.push_back({ i,j });
+	return opponetPos;
 }
