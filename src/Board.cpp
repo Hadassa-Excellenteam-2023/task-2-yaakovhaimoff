@@ -48,11 +48,11 @@ int Board::getResponse(const std::string& input) {
 	}
 
 	// if move was legal
-	m_whiteMove = !m_whiteMove; // change the player
-
+	bool opponet = !m_whiteMove; // change the player
+	m_whiteMove = !m_whiteMove;
 	// check if player caused opponet check
-	if (checkIfKingInCheck(!m_whiteMove)) return 41;
-	else return 42;
+	if (checkIfKingInCheck(opponet)) return 41;
+	return 42;
 }
 
 
