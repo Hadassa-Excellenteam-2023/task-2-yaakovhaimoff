@@ -3,13 +3,13 @@
 bool Queen::m_registerIt1 =
         Factory<Piece>::registerIt('Q',
                                    []() -> std::unique_ptr<Piece> {
-                                       return std::make_unique<Queen>(false);
+                                       return std::make_unique<Queen>(true);
                                    });
 
 bool Queen::m_registerIt2 =
         Factory<Piece>::registerIt('q',
                                    []() -> std::unique_ptr<Piece> {
-                                       return std::make_unique<Queen>(true);
+                                       return std::make_unique<Queen>(false);
                                    });
 
 bool Queen::canMove(const Position& src, const Position& dst, const bool) {

@@ -16,6 +16,12 @@ class Board {
      */
     void setBoard(const std::string& board);
 
+    // Private helper functions
+    /**
+     * @brief Sets the white and black kigs positions
+     */
+    void setKingsPositions();
+
     /**
      * @brief Checks if the next step from src to dst is clear of obstacles
      * @param src The source position
@@ -44,7 +50,7 @@ class Board {
      * @param pos The position of the king
      * @param color The color of the king
      */
-    void setKingPos(const Position& pos, const bool color) { color ? m_whiteKingPos = pos : m_BlackKingPos = pos; }
+    void setKingPos(const Position& pos, const bool color) { color ? m_WhiteKingPos = pos : m_BlackKingPos = pos; }
 
     /**
      * @brief Gets the positions of all opponent pieces
@@ -55,8 +61,8 @@ class Board {
 
     // Member variables
     bool m_whiteMove = true;
-    Position m_whiteKingPos = { 8, 5 };
-    Position m_BlackKingPos{ 1, 5 };
+    Position m_WhiteKingPos;
+    Position m_BlackKingPos;
     std::vector<std::vector<std::unique_ptr<Piece>>> m_piece; // 2D vector of unique pointers to Piece objects
 
 public:

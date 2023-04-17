@@ -10,6 +10,16 @@ void Board::setBoard(const std::string& board) {
 		int y = i / 8;
 		m_piece[y][x] = Factory<Piece>::create(board[i]);
 	}
+	setKingsPositions();
+}
+
+void Board::setKingsPositions() {
+	for (int i = 0; i < BoardSize; i++)
+		for (int j = 0; j < BoardSize; j++) 
+			if (m_piece[i][j] && typeid(*m_piece[i][j]) == typeid(King)) {
+				m_piece[i][j]->isWhite() ? setKingPos({ i + 1, j + 1 }, true) :
+					setKingPos({ i + 1, j + 1 }, false);
+			}
 }
 
 int Board::getResponse(const std::string& input) {
@@ -30,8 +40,8 @@ int Board::getResponse(const std::string& input) {
 		return 13;
 
 	// check if the player move is legal
-	bool moveClear = checkIfNextStepClear(src, dst);
-	if (!m_piece[src.x][src.y]->canMove(src, dst, moveClear) || !checkIfNextStepClear(src, dst)) return 21;
+	bool opponent = m_piece[dst.x][dst.y] && m_piece[src.x][src.y]->isWhite() == !m_piece[dst.x][dst.y]->isWhite();
+	if (!m_piece[src.x][src.y]->canMove(src, dst, opponent) || !checkIfNextStepClear(src, dst)) return 21;
 
 	// if player move was legal
 	m_piece[dst.x][dst.y] = move(m_piece[src.x][src.y]);
@@ -42,15 +52,15 @@ int Board::getResponse(const std::string& input) {
 
 	// check if player caused himself check
 	if (checkIfKingInCheck(m_whiteMove)) {
-		if(typeid(*m_piece[dst.x][dst.y]) == typeid(King)) { 
-		setKingPos({ src.x, src.y }, m_piece[dst.x][dst.y]->isWhite());
+		if (typeid(*m_piece[dst.x][dst.y]) == typeid(King)) {
+			setKingPos({ src.x, src.y }, m_piece[dst.x][dst.y]->isWhite());
 		}
 		m_piece[src.x][src.y] = move(m_piece[dst.x][dst.y]);
 		return 31;
 	}
 
 	// if move was legal
-	bool opponet = !m_whiteMove; 
+	bool opponet = !m_whiteMove;
 	m_whiteMove = !m_whiteMove; // change the player
 	// check if player caused opponet check
 	if (checkIfKingInCheck(opponet)) return 41;
@@ -87,7 +97,7 @@ bool Board::checkIfNextStepClear(const Position& src, const Position& dst) {
 
 bool Board::checkIfKingInCheck(const bool color) {
 	vector<Position> opponetPos = getOpponetPos(color);
-	Position kingPos = color ? m_whiteKingPos : m_BlackKingPos;
+	Position kingPos = color ? m_WhiteKingPos : m_BlackKingPos;
 
 	for (auto& pos : opponetPos) {
 		if (m_piece[pos.x][pos.y]->canMove(pos, kingPos, checkIfNextStepClear(pos, kingPos)))

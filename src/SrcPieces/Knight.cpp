@@ -3,13 +3,13 @@
 bool Knight::m_registerIt1 =
         Factory<Piece>::registerIt('N',
                                    []() -> std::unique_ptr<Piece> {
-                                       return std::make_unique<Knight>(false);
+                                       return std::make_unique<Knight>(true);
                                    });
 
 bool Knight::m_registerIt2 =
         Factory<Piece>::registerIt('n',
                                    []() -> std::unique_ptr<Piece> {
-                                       return std::make_unique<Knight>(true);
+                                       return std::make_unique<Knight>(false);
                                    });
 
 bool Knight::canMove(const Position& src, const Position& dst, const bool) {

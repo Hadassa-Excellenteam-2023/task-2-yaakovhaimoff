@@ -117,9 +117,9 @@ void Chess::setFrames() {
 // print the who is turn before getting input
     void Chess::showAskInput() const {
         if (m_turn)
-            cout << "Player 1 (White - Samll letters) >> ";
+            cout << "Player 1 (White - Capital letters) >> ";
         else
-            cout << "Player 2 (Black - Capital letters)   >> ";
+            cout << "Player 2 (Black - Small letters)   >> ";
     }
 
 // check if the source and dest are the same

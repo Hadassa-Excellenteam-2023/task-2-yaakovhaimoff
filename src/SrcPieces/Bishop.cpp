@@ -3,13 +3,13 @@
 bool Bishop::m_registerIt1 =
         Factory<Piece>::registerIt('B',
                                    []() -> std::unique_ptr<Piece> {
-                                       return std::make_unique<Bishop>(false);
+                                       return std::make_unique<Bishop>(true);
                                    });
 
 bool Bishop::m_registerIt2 =
         Factory<Piece>::registerIt('b',
                                    []() -> std::unique_ptr<Piece> {
-                                       return std::make_unique<Bishop>(true);
+                                       return std::make_unique<Bishop>(false);
                                    });
 
 bool Bishop::canMove(const Position& src, const Position& dst, const bool) {
