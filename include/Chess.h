@@ -1,17 +1,11 @@
 #pragma once
-#include <iostream>
-#include <Windows.h>
-#include <string>
 
-using std::cout;
-using std::cin; 
-using std::endl;
-using std::string; 
+#include "macros.h"
 
-const int SIZE = 21;
+const int _SIZE = 21;
 
 class Chess {
-	unsigned char m_board[SIZE][SIZE] = { 0 };
+	unsigned char m_board[_SIZE][_SIZE] = { 0 };
 	bool m_turn = true;
 	string m_boardString;
 	string m_input;

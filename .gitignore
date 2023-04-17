@@ -6,6 +6,8 @@ cmake-build-*/
 # Ignore executable files
 *.exe
 *.out
+.vs/
+out/
 
 # Ignore CLion files
 .idea/
