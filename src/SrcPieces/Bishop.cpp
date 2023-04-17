@@ -12,7 +12,7 @@ bool Bishop::m_registerIt2 =
                                        return std::make_unique<Bishop>(true);
                                    });
 
-bool Bishop::canMove(const Position& src, const Position& dst, const bool moveClear) {
+bool Bishop::canMove(const Position& src, const Position& dst, const bool) {
     // Check if the new position is on the same diagonal as the current position
-    return abs(src.x - dst.x) == abs(src.y - dst.y) && src != dst && moveClear;
+    return abs(src.x - dst.x) == abs(src.y - dst.y) && src != dst;
 }

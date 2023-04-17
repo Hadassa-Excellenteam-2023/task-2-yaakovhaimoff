@@ -19,6 +19,7 @@ using std::endl;
 using std::string;
 using std::unique_ptr;
 using std::pair;
+using std::vector;
 using std::make_unique;
 
 const int BoardSize = 8;

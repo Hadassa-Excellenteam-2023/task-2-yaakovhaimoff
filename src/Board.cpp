@@ -31,7 +31,7 @@ int Board::getResponse(const std::string& input) {
 
 	// check if the player move is legal
 	bool moveClear = checkIfNextStepClear(src, dst);
-	if (!m_piece[src.x][src.y]->canMove(src, dst, moveClear)) return 21;
+	if (!m_piece[src.x][src.y]->canMove(src, dst, moveClear) || !checkIfNextStepClear(src, dst)) return 21;
 
 	// if player move was legal
 	m_piece[dst.x][dst.y] = move(m_piece[src.x][src.y]);
@@ -42,14 +42,16 @@ int Board::getResponse(const std::string& input) {
 
 	// check if player caused himself check
 	if (checkIfKingInCheck(m_whiteMove)) {
+		if(typeid(*m_piece[dst.x][dst.y]) == typeid(King)) { 
 		setKingPos({ src.x, src.y }, m_piece[dst.x][dst.y]->isWhite());
+		}
 		m_piece[src.x][src.y] = move(m_piece[dst.x][dst.y]);
 		return 31;
 	}
 
 	// if move was legal
-	bool opponet = !m_whiteMove; // change the player
-	m_whiteMove = !m_whiteMove;
+	bool opponet = !m_whiteMove; 
+	m_whiteMove = !m_whiteMove; // change the player
 	// check if player caused opponet check
 	if (checkIfKingInCheck(opponet)) return 41;
 	return 42;
@@ -62,11 +64,19 @@ bool Board::checkIfNextStepClear(const Position& src, const Position& dst) {
 	int rowStep = (dstRow == srcRow) ? 0 : (dstRow > srcRow ? 1 : -1);
 	int colStep = (dstCol == srcCol) ? 0 : (dstCol > srcCol ? 1 : -1);
 
+	// check for knight move
+	if ((abs(dstRow - srcRow) == 2 && abs(dstCol - srcCol) == 1) ||
+		(abs(dstRow - srcRow) == 1 && abs(dstCol - srcCol) == 2)) {
+		return true;
+	}
+
+	// check for invalid moves
 	if (srcRow != dstRow && srcCol != dstCol && abs(srcRow - dstRow) != abs(srcCol - dstCol)) {
 		// Not a valid rook, bishop or queen move
 		return false;
 	}
 
+	// check for obstacles in path
 	for (int row = srcRow + rowStep, col = srcCol + colStep; row != dstRow || col != dstCol; row += rowStep, col += colStep) {
 		if (m_piece[row][col]) {
 			return false;
